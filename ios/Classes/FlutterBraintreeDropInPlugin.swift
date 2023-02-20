@@ -135,11 +135,15 @@ public class FlutterBraintreeDropInPlugin: BaseFlutterBraintreePlugin, FlutterPl
     
     private func setupApplePay(flutterResult: FlutterResult) {
         let paymentRequest = PKPaymentRequest()
-        paymentRequest.supportedNetworks = [.visa, .masterCard, .amex, .discover]
+        if let supportedNetworksValueArray = applePayInfo["supportedNetworks"] as? [Int] {
+            paymentRequest.supportedNetworks = supportedNetworksValueArray.compactMap({ value in
+                return PKPaymentNetwork.mapRequestedNetwork(rawValue: value)
+            })
+        }
         paymentRequest.merchantCapabilities = .capability3DS
         paymentRequest.countryCode = applePayInfo["countryCode"] as! String
         paymentRequest.currencyCode = applePayInfo["currencyCode"] as! String
-        paymentRequest.merchantIdentifier = applePayInfo["appleMerchantID"] as! String
+        paymentRequest.merchantIdentifier = applePayInfo["merchantIdentifier"] as! String
         
         guard let paymentSummaryItems = makePaymentSummaryItems(from: applePayInfo) else {
             return;
