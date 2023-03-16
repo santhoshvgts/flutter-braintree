@@ -38,6 +38,8 @@ class Braintree {
     String authorization,
     BraintreePayPalRequest request,
   ) async {
+    print("PAYPAL REQUEST");
+    print( request.toJson());
     final result = await _kChannel.invokeMethod('requestPaypalNonce', {
       'authorization': authorization,
       'request': request.toJson(),

@@ -39,6 +39,9 @@ public class FlutterBraintreeCustomPlugin: BaseFlutterBraintreePlugin, FlutterPl
                 let paypalRequest = BTPayPalCheckoutRequest(amount: amount)
                 paypalRequest.currencyCode = requestInfo["currencyCode"] as? String
                 paypalRequest.displayName = requestInfo["displayName"] as? String
+                
+                print(requestInfo["isShippingAddressRequired"])
+
                 paypalRequest.isShippingAddressRequired = requestInfo["isShippingAddressRequired"] != nil ? requestInfo["isShippingAddressRequired"]! as! Bool : false
                 paypalRequest.billingAgreementDescription = requestInfo["billingAgreementDescription"] as? String
                 if let intent = requestInfo["payPalPaymentIntent"] as? String {
