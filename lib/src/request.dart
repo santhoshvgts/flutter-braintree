@@ -151,6 +151,7 @@ class BraintreePayPalRequest {
     required this.amount,
     this.currencyCode,
     this.displayName,
+    this.isShippingAddressRequired = false,
     this.billingAgreementDescription,
     this.payPalPaymentIntent = PayPalPaymentIntent.authorize,
     this.payPalPaymentUserAction = PayPalPaymentUserAction.default_,
@@ -176,6 +177,9 @@ class BraintreePayPalRequest {
   /// for additional documentation.
   PayPalPaymentUserAction payPalPaymentUserAction;
 
+  /// Defaults to false. When set to true, the shipping address selector will be displayed.
+  bool isShippingAddressRequired = false;
+
   /// Converts this request object into a JSON-encodable format.
   Map<String, dynamic> toJson() => {
     if (amount != null) 'amount': amount,
@@ -185,6 +189,7 @@ class BraintreePayPalRequest {
       'billingAgreementDescription': billingAgreementDescription,
     'payPalPaymentIntent': payPalPaymentIntent.name,
     'payPalPaymentUserAction': payPalPaymentUserAction.name,
+    'isShippingAddressRequired': isShippingAddressRequired,
   };
 }
 

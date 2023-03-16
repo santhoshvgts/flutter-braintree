@@ -39,6 +39,7 @@ public class FlutterBraintreeCustomPlugin: BaseFlutterBraintreePlugin, FlutterPl
                 let paypalRequest = BTPayPalCheckoutRequest(amount: amount)
                 paypalRequest.currencyCode = requestInfo["currencyCode"] as? String
                 paypalRequest.displayName = requestInfo["displayName"] as? String
+                paypalRequest.isShippingAddressRequired = requestInfo["isShippingAddressRequired"] as? Bool
                 paypalRequest.billingAgreementDescription = requestInfo["billingAgreementDescription"] as? String
                 if let intent = requestInfo["payPalPaymentIntent"] as? String {
                     switch intent {
@@ -66,7 +67,8 @@ public class FlutterBraintreeCustomPlugin: BaseFlutterBraintreePlugin, FlutterPl
                 let paypalRequest = BTPayPalVaultRequest()
                 paypalRequest.displayName = requestInfo["displayName"] as? String
                 paypalRequest.billingAgreementDescription = requestInfo["billingAgreementDescription"] as? String
-                
+                paypalRequest.isShippingAddressRequired = requestInfo["isShippingAddressRequired"] as? Bool
+
                 driver.tokenizePayPalAccount(with: paypalRequest) { (nonce, error) in
                     self.handleResult(nonce: nonce, error: error, flutterResult: result)
                     self.isHandlingResult = false

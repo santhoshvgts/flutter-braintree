@@ -73,6 +73,7 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
         PayPalRequest request = new PayPalRequest(intent.getStringExtra("amount"))
                 .currencyCode(intent.getStringExtra("currencyCode"))
                 .displayName(intent.getStringExtra("displayName"))
+                .setShippingAddressRequired(intent.getStringExtra("isShippingAddressRequired"))
                 .billingAgreementDescription(intent.getStringExtra("billingAgreementDescription"))
                 .intent(paypalIntent)
                 .userAction(payPalPaymentUserAction);
