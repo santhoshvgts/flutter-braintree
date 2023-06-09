@@ -196,6 +196,7 @@ class BraintreePayPalRequest {
     required this.amount,
     this.currencyCode,
     this.displayName,
+    this.isShippingAddressRequired = false,
     this.billingAgreementDescription,
     this.payPalPaymentIntent = PayPalPaymentIntent.authorize,
     this.payPalPaymentUserAction = PayPalPaymentUserAction.default_,
@@ -214,6 +215,9 @@ class BraintreePayPalRequest {
   /// Description for the billing agreement for the Vault flow.
   String? billingAgreementDescription;
 
+  /// Defaults to false. When set to true, the shipping address selector will be displayed.
+  bool isShippingAddressRequired = false;
+
   /// The payment intent in the PayPal Checkout flow.
   PayPalPaymentIntent payPalPaymentIntent;
 
@@ -230,6 +234,7 @@ class BraintreePayPalRequest {
           'billingAgreementDescription': billingAgreementDescription,
         'payPalPaymentIntent': payPalPaymentIntent.name,
         'payPalPaymentUserAction': payPalPaymentUserAction.name,
+        'isShippingAddressRequired': isShippingAddressRequired,
       };
 }
 

@@ -105,6 +105,7 @@ public class FlutterBraintreePlugin implements FlutterPlugin, ActivityAware, Met
       intent.putExtra("amount", (String) request.get("amount"));
       intent.putExtra("currencyCode", (String) request.get("currencyCode"));
       intent.putExtra("displayName", (String) request.get("displayName"));
+      intent.putExtra("isShippingAddressRequired", (Boolean) request.get("isShippingAddressRequired"));
       intent.putExtra("payPalPaymentIntent", (String) request.get("payPalPaymentIntent"));
       intent.putExtra("payPalPaymentUserAction", (String) request.get("payPalPaymentUserAction"));
       intent.putExtra("billingAgreementDescription", (String) request.get("billingAgreementDescription"));
