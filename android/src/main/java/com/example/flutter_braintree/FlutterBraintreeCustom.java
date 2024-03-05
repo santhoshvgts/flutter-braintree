@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.braintreepayments.api.BraintreeClient;
 import com.braintreepayments.api.Card;
@@ -26,14 +27,18 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements PayPalL
     private BraintreeClient braintreeClient;
     private PayPalClient payPalClient;
     private Boolean started = false;
+    private long creationTimestamp = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        creationTimestamp = System.currentTimeMillis();
+
         setContentView(R.layout.activity_flutter_braintree_custom);
         try {
             Intent intent = getIntent();
-            braintreeClient = new BraintreeClient(this, intent.getStringExtra("authorization"));
+            braintreeClient = new BraintreeClient(this, intent.getStringExtra("authorization"), "com.apmex.spot.return.from.braintree");
             String type = intent.getStringExtra("type");
             if (type.equals("tokenizeCreditCard")) {
                 tokenizeCreditCard();
@@ -62,7 +67,6 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements PayPalL
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     @Override
@@ -101,6 +105,7 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements PayPalL
             vaultRequest.setBillingAgreementDescription(intent.getStringExtra("billingAgreementDescription"));
             payPalClient.tokenizePayPalAccount(this, vaultRequest);
         } else {
+
             // Checkout flow
             PayPalCheckoutRequest checkOutRequest = new PayPalCheckoutRequest(intent.getStringExtra("amount"));
             checkOutRequest.setCurrencyCode(intent.getStringExtra("currencyCode"));
@@ -149,7 +154,8 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements PayPalL
     @Override
     public void onPayPalFailure(@NonNull Exception error) {
         if (error instanceof UserCanceledException) {
-            if(((UserCanceledException) error).isExplicitCancelation()){
+            System.out.println("USER CANCELLED EXCEP" + error.getMessage());
+            if(((UserCanceledException) error).isExplicitCancelation() || System.currentTimeMillis() - creationTimestamp > 500){
                 onCancel();
             }
         } else {
