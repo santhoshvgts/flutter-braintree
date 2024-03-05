@@ -103,12 +103,14 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements PayPalL
             PayPalVaultRequest vaultRequest = new PayPalVaultRequest();
             vaultRequest.setDisplayName(intent.getStringExtra("displayName"));
             vaultRequest.setBillingAgreementDescription(intent.getStringExtra("billingAgreementDescription"));
+            vaultRequest.setShippingAddressRequired(intent.getBooleanExtra("isShippingAddressRequired", false));
             payPalClient.tokenizePayPalAccount(this, vaultRequest);
         } else {
 
             // Checkout flow
             PayPalCheckoutRequest checkOutRequest = new PayPalCheckoutRequest(intent.getStringExtra("amount"));
             checkOutRequest.setCurrencyCode(intent.getStringExtra("currencyCode"));
+            checkOutRequest.setShippingAddressRequired(intent.getBooleanExtra("isShippingAddressRequired", false));
             payPalClient.tokenizePayPalAccount(this, checkOutRequest);
         }
     }
