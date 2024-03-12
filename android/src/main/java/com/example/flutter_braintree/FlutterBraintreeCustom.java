@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.braintreepayments.api.BraintreeClient;
+import com.braintreepayments.api.BuildConfig;
 import com.braintreepayments.api.Card;
 import com.braintreepayments.api.CardClient;
 import com.braintreepayments.api.CardNonce;
@@ -22,6 +23,7 @@ import com.braintreepayments.api.UserCanceledException;
 
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 public class FlutterBraintreeCustom extends AppCompatActivity implements PayPalListener {
     private BraintreeClient braintreeClient;
@@ -38,7 +40,15 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements PayPalL
         setContentView(R.layout.activity_flutter_braintree_custom);
         try {
             Intent intent = getIntent();
-            braintreeClient = new BraintreeClient(this, intent.getStringExtra("authorization"), "com.apmex.spot.return.from.braintree");
+
+            String appPackageName = getApplicationContext().getPackageName() + ".return.from.braintree";
+            Log.d("APPLICATION_ID", appPackageName);
+
+            braintreeClient = new BraintreeClient(
+                this,
+                intent.getStringExtra("authorization"),
+                appPackageName
+            );
             String type = intent.getStringExtra("type");
             if (type.equals("tokenizeCreditCard")) {
                 tokenizeCreditCard();
