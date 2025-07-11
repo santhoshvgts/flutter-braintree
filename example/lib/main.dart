@@ -119,6 +119,7 @@ class _MyAppState extends State<MyApp> {
                   billingAgreementDescription:
                       'I hereby agree that flutter_braintree is great.',
                   displayName: 'Your Company',
+                  isShippingAddressRequired: true
                 );
                 final result = await Braintree.requestPaypalNonce(
                   tokenizationKey,
@@ -132,7 +133,7 @@ class _MyAppState extends State<MyApp> {
             ),
             ElevatedButton(
               onPressed: () async {
-                final request = BraintreePayPalRequest(amount: '13.37');
+                final request = BraintreePayPalRequest(amount: '13.37',     isShippingAddressRequired: true);
                 final result = await Braintree.requestPaypalNonce(
                   tokenizationKey,
                   request,
