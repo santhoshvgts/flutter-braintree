@@ -135,13 +135,13 @@ public class FlutterBraintreeCustomPlugin: BaseFlutterBraintreePlugin, FlutterPl
                 return
             }
 
-            if !canMakePaymentsWithMerchant {
-                result(FlutterError(code: "APPLE_PAY_ERROR",
-                                  message: "Apple Pay is not available for merchant: \(merchantIdentifier). Please check your Apple Pay configuration in Xcode and Apple Developer account.",
-                                  details: nil))
-                isHandlingResult = false
-                return
-            }
+            // if !canMakePaymentsWithMerchant {
+            //     result(FlutterError(code: "APPLE_PAY_CARD_ERROR",
+            //                       message: "You don't have a card or a supported card added to Apple Pay.",
+            //                       details: nil))
+            //     isHandlingResult = false
+            //     return
+            // }
 
             let paymentRequest = PKPaymentRequest()
             paymentRequest.merchantIdentifier = merchantIdentifier
