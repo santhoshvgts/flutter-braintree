@@ -157,8 +157,8 @@ public class FlutterBraintreeCustomPlugin: BaseFlutterBraintreePlugin, FlutterPl
                         return nil
                     }
 
-                    let _: PKPaymentSummaryItemType = typeRaw == 0 ? .final : .pending
-                    return PKPaymentSummaryItem(label: label, amount: NSDecimalNumber(value: amount))
+                    let itemType: PKPaymentSummaryItemType = typeRaw == 0 ? .final : .pending
+                    return PKPaymentSummaryItem(label: label, amount: NSDecimalNumber(value: amount), type: itemType)
                 }
             }
 
