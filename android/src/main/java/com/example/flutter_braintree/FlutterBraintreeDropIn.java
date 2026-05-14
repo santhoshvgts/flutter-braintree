@@ -8,7 +8,6 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.ActivityResultListener;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -35,15 +34,6 @@ public class FlutterBraintreeDropIn  implements FlutterPlugin, ActivityAware, Me
 
   private Activity activity;
   private Result activeResult;
-
-
-  public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_braintree.drop_in");
-    FlutterBraintreeDropIn plugin = new FlutterBraintreeDropIn();
-    plugin.activity = registrar.activity();
-    registrar.addActivityResultListener(plugin);
-    channel.setMethodCallHandler(plugin);
-  }
 
   @Override
   public void onAttachedToEngine(FlutterPluginBinding binding) {
